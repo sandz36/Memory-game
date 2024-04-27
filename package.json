@@ -1,0 +1,23 @@
+{
+  "name": "sandile-mdluli-222-memory-game-in-vanilla-js-javascript",
+  "version": "1.0.0",
+  "description": "Memory game web app (222) For raw project instructions see: http://syllabus.africacode.net/projects/memory-game/part-1/",
+  "scripts": {
+    "test": "jasmine",
+    "build": "webpack",
+    "start": "serve dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine": "^5.1.0",
+    "jasmine-node": "^1.16.0",
+    "serve": "^14.2.1",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "jsdom": "^24.0.0"
+  }
+}
