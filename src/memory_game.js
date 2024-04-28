@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('startGame').addEventListener('click', function () {
     const rows = parseInt(document.getElementById('rows').value);
     const columns = parseInt(document.getElementById('columns').value);
-    resetGameState();
+    resetGameState(); 
     shuffleTiles(rows, columns);
   });
 });
