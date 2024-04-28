@@ -22,6 +22,13 @@ body {
   border: 5px solid red;
   
 }
+.buttons {
+  border: 2px solid black; /* Adjust border color and width as needed */
+  padding: 10px; /* Add padding for spacing */
+  display: grid;
+  grid-template-columns: repeat(2 ,1fr);
+  height: 100px;
+}
 
 .tile {
   height: 70px;

@@ -19,10 +19,10 @@ function buildTile(color, id) {
 
 function shuffleTiles(rows, columns) {
   const tilesContainer = setGridSize(rows, columns);
-  const colors = strings.colors.slice(0, (rows * columns) / 2);
+  const total = rows * columns
+  const colors = strings.colors.slice(0, (total) / 2);
   const colorsPickList = [...colors, ...colors];
   const tileCount = colorsPickList.length;
-  console.log(tileCount);
   for (let i = 0; i < tileCount; i++) {
     const randomIndex = Math.floor(Math.random() * colorsPickList.length);
     const color = colorsPickList[randomIndex];
@@ -36,7 +36,7 @@ function shuffleTiles(rows, columns) {
 function setGridSize(rows, columns) {
   const tilesContainer = document.querySelector(strings.tilesContainer);
 
-  // Calculate height based on rows
+  
   let height;
   switch (rows) {
     case 2:
@@ -82,17 +82,21 @@ document.addEventListener('DOMContentLoaded', function () {
     const columns = parseInt(document.getElementById('columns').value);
     resetGameState(); 
     shuffleTiles(rows, columns);
+    this.disabled = true;
+   
   });
 });
 
 let restartButton = document.querySelector(strings.restart);
 restartButton.addEventListener(strings.click, () => {
   resetGameState();
+  document.getElementById('startGame').disabled = false;
 });
 
 function handleClick(event) {
   const tiles = document.querySelectorAll(strings.tiles);
   let counter = tiles.length;
+  const total = tiles.length;
   const tile = event.target;
   if (isTileRevealedOrMatched(tile)) {
     return;
@@ -100,6 +104,7 @@ function handleClick(event) {
 
   addRevealClassPush(tile);
   const revealedTiles = getRevealedTiles();
+ 
 
   if (revealedTiles.length === 2) {
     const feedback = document.querySelector(strings.feedback);
@@ -113,10 +118,10 @@ function handleClick(event) {
         tile1.classList.remove(strings.revealed);
         tile2.classList.remove(strings.revealed);
 
-        if (counter === 14) {
+        if (counter === total - 2) { 
           restartButton.style.visibility = strings.visible;
         }
-        if (checkAllTilesFlippedAndCounter(counter, tiles) === true) {
+        if (checkAllTilesFlippedAndCounter(counter, tiles)) {
           feedback.style.visibility = strings.visible;
         }
       }, 1000);
