@@ -76,16 +76,22 @@ function setGridSize(rows, columns) {
   return tilesContainer;
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('startGame').addEventListener('click', function () {
-    const rows = parseInt(document.getElementById('rows').value);
-    const columns = parseInt(document.getElementById('columns').value);
-    resetGameState(); 
-    shuffleTiles(rows, columns);
-    this.disabled = true;
-   
+function startGame() {
+  const rows = parseInt(document.getElementById('rows').value);
+  const columns = parseInt(document.getElementById('columns').value);
+  shuffleTiles(rows, columns);
+  const tiles = document.querySelectorAll(strings.tiles);
+  console.log(tiles.length, `length`);
+  document.getElementById('startGame').disabled = true;
+}
+
+
+  let startGameElement = document.getElementById('startGame');
+  startGameElement.addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent default button behavior
+    startGame();
   });
-});
+
 
 let restartButton = document.querySelector(strings.restart);
 restartButton.addEventListener(strings.click, () => {
@@ -145,8 +151,12 @@ function resetGameState() {
   feedback.style.visibility = strings.hidden;
 }
 
+
 module.exports = {
   handleClick,
   shuffleTiles,
+  startGame,
+  startGameElement,
+  restartButton,
+  resetGameState,
 };
-
