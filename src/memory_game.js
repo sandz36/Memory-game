@@ -49,11 +49,9 @@ function setGridSize(rows, columns) {
       height = '300px';
       break;
     default:
-      console.warn(`Invalid number of rows: ${rows}. Using default height.`);
-      height = 'auto'; // Or a default height you prefer
+      height = 'auto'; 
   }
 
-  // Calculate width based on columns
   let width;
   switch (columns) {
     case 2:
@@ -66,29 +64,29 @@ function setGridSize(rows, columns) {
       width = '300px';
       break;
     default:
-      console.warn(`Invalid number of columns: ${columns}. Using default width.`);
-      width = 'auto'; // Or a default width you prefer
+      
+      width = 'auto'; 
   }
 
-  // Set container styles directly
+
   tilesContainer.style.width = width;
   tilesContainer.style.height = height;
   return tilesContainer;
 }
 
 function startGame() {
-  const rows = parseInt(document.getElementById('rows').value);
-  const columns = parseInt(document.getElementById('columns').value);
+  const rows = parseInt(document.getElementById(strings.row).value);
+  const columns = parseInt(document.getElementById(strings.column).value);
   shuffleTiles(rows, columns);
   const tiles = document.querySelectorAll(strings.tiles);
-  console.log(tiles.length, `length`);
+ 
   document.getElementById('startGame').disabled = true;
 }
 
 
-  let startGameElement = document.getElementById('startGame');
-  startGameElement.addEventListener('click', function (event) {
-    event.preventDefault(); // Prevent default button behavior
+  let startGameElement = document.getElementById(strings.start);
+  startGameElement.addEventListener(strings.click, function (event) {
+    event.preventDefault(); 
     startGame();
   });
 
@@ -96,7 +94,7 @@ function startGame() {
 let restartButton = document.querySelector(strings.restart);
 restartButton.addEventListener(strings.click, () => {
   resetGameState();
-  document.getElementById('startGame').disabled = false;
+  document.getElementById(strings.start).disabled = false;
 });
 
 function handleClick(event) {

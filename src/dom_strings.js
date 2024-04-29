@@ -1,3 +1,4 @@
+
 strings = {
   tilesContainer: ".tiles",
   tiles: ".tile",
@@ -22,6 +23,10 @@ strings = {
   id: "id",
   visible: "visible",
   hidden: "hidden",
+  start: "startGame",
+  row: "rows",
+  column:"columns",
+ 
 };
 
 module.exports = strings;
