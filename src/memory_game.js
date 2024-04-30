@@ -19,8 +19,8 @@ function buildTile(color, id) {
 
 function shuffleTiles(rows, columns) {
   const tilesContainer = setGridSize(rows, columns);
-  const total = rows * columns
-  const colors = strings.colors.slice(0, (total) / 2);
+  const total = rows * columns;
+  const colors = strings.colors.slice(0, total / 2);
   const colorsPickList = [...colors, ...colors];
   const tileCount = colorsPickList.length;
   for (let i = 0; i < tileCount; i++) {
@@ -36,38 +36,20 @@ function shuffleTiles(rows, columns) {
 function setGridSize(rows, columns) {
   const tilesContainer = document.querySelector(strings.tilesContainer);
 
-  
-  let height;
-  switch (rows) {
-    case 2:
-      height = '180px';
-      break;
-    case 3:
-      height = '260px';
-      break;
-    case 4:
-      height = '300px';
-      break;
-    default:
-      height = 'auto'; 
-  }
+  const heights = {
+    2: "180px",
+    3: "260px",
+    4: "300px",
+  };
 
-  let width;
-  switch (columns) {
-    case 2:
-      width = '190px';
-      break;
-    case 3:
-      width = '260px';
-      break;
-    case 4:
-      width = '300px';
-      break;
-    default:
-      
-      width = 'auto'; 
-  }
+  const widths = {
+    2: "190px",
+    3: "260px",
+    4: "300px",
+  };
 
+  const height = heights[rows] || "auto";
+  const width = widths[columns] || "auto";
 
   tilesContainer.style.width = width;
   tilesContainer.style.height = height;
@@ -78,23 +60,21 @@ function startGame() {
   const rows = parseInt(document.getElementById(strings.row).value);
   const columns = parseInt(document.getElementById(strings.column).value);
   shuffleTiles(rows, columns);
-  const tiles = document.querySelectorAll(strings.tiles);
- 
-  document.getElementById('startGame').disabled = true;
 }
 
-
-  let startGameElement = document.getElementById(strings.start);
-  startGameElement.addEventListener(strings.click, function (event) {
-    event.preventDefault(); 
-    startGame();
-  });
-
+let startGameElement = document.getElementById(strings.start);
+startGameElement.addEventListener(strings.click, function (event) {
+  event.preventDefault();
+  resetGameState();
+  startGame();
+});
 
 let restartButton = document.querySelector(strings.restart);
 restartButton.addEventListener(strings.click, () => {
   resetGameState();
-  document.getElementById(strings.start).disabled = false;
+  const rows = parseInt(document.getElementById(strings.row).value);
+  const columns = parseInt(document.getElementById(strings.column).value);
+  shuffleTiles(rows, columns);
 });
 
 function handleClick(event) {
@@ -108,7 +88,6 @@ function handleClick(event) {
 
   addRevealClassPush(tile);
   const revealedTiles = getRevealedTiles();
- 
 
   if (revealedTiles.length === 2) {
     const feedback = document.querySelector(strings.feedback);
@@ -122,7 +101,7 @@ function handleClick(event) {
         tile1.classList.remove(strings.revealed);
         tile2.classList.remove(strings.revealed);
 
-        if (counter === total - 2) { 
+        if (counter === total - 2) {
           restartButton.style.visibility = strings.visible;
         }
         if (checkAllTilesFlippedAndCounter(counter, tiles)) {
@@ -148,7 +127,6 @@ function resetGameState() {
   counter = tiles.length;
   feedback.style.visibility = strings.hidden;
 }
-
 
 module.exports = {
   handleClick,

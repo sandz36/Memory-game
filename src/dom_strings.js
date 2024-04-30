@@ -1,4 +1,3 @@
-
 strings = {
   tilesContainer: ".tiles",
   tiles: ".tile",
@@ -7,12 +6,12 @@ strings = {
   colors: [
     "red",
     "orange",
-     "purple",
-     "brown",
-     "green",
-     "pink",
-     "yellow",
-     "white",
+    "purple",
+    "brown",
+    "green",
+    "pink",
+    "yellow",
+    "white",
   ],
   div: "div",
   tile: "tile",
@@ -25,8 +24,7 @@ strings = {
   hidden: "hidden",
   start: "startGame",
   row: "rows",
-  column:"columns",
- 
+  column: "columns",
 };
 
 module.exports = strings;

@@ -10,22 +10,18 @@ body {
   overflow: hidden;
 }
 
-
 .tiles {
   margin: 6px auto;
   width: 190px;
   height: 260px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(70px,1fr));
-  grid-template-rows: repeat(auto-fit, minmax(70px,1fr));
-  
-  
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(70px, 1fr));
 }
 .buttons {
-  
-  padding: 10px; 
+  padding: 10px;
   display: grid;
-  grid-template-columns: repeat(2 ,1fr);
+  grid-template-columns: repeat(2, 1fr);
   height: 100px;
 }
 

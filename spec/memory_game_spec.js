@@ -6,23 +6,14 @@ const { document } = new JSDOM(index).window;
 global.document = document;
 
 const strings = require("../src/dom_strings");
-const {
-  
-  restartButton,
-  startGameElement,
-  
-} = require('../src/memory_game');
-
+const { restartButton, startGameElement } = require("../src/memory_game");
 
 describe("Memory Game", () => {
-  
   let rows, columns;
 
   beforeEach(() => {
-    
     jasmine.clock().install();
 
-    
     tiles = document.querySelectorAll(strings.tiles);
     rows = document.getElementById(strings.row);
     columns = document.getElementById(strings.column);
@@ -30,50 +21,39 @@ describe("Memory Game", () => {
     columns.value = "3";
     startGameElement.click();
     tiles = document.querySelectorAll(strings.tiles);
-    
-  
   });
 
   afterEach(() => {
-    
-    restartButton.click()
+    restartButton.click();
     jasmine.clock().uninstall();
   });
 
   describe("shuffleTiles function", () => {
-    it("should disable the 'StartGame' button after clicking it", () => {
-      const startGameButton = document.getElementById('startGame');
-    
+    it("should not disable the 'StartGame' button after clicking it", () => {
+      const startGameButton = document.getElementById("startGame");
+
       startGameButton.click();
-    
-      
-      expect(startGameButton.disabled).toBe(true);
-      restartButton.click()
+
+      expect(startGameButton.disabled).toBe(false);
+      restartButton.click();
       expect(startGameButton.disabled).toBe(false);
     });
     it("should set the container height based on the number of rows", () => {
-
       const tilesContainer = document.querySelector(strings.tilesContainer);
-      const expectedHeight = '300px';
+      const expectedHeight = "300px";
       expect(tilesContainer.style.height).toBe(expectedHeight);
     });
 
     it("should create tile elements as configured by user at start", () => {
-      
-      
-
       expect(tiles.length).toBe(12);
       tiles.forEach((tile) => {
         expect(tile.classList.contains(strings.tile)).toBe(true);
         expect(tile.classList.contains(strings.revealed)).toBe(false);
         expect(tile.classList.contains(strings.match)).toBe(false);
       });
-
     });
 
     it("should not flip revealed tiles when clicked", () => {
-    
-      
       tiles[0].click();
       expect(tiles[0].classList.contains(strings.revealed)).toBe(true);
       tiles[0].click();
@@ -81,8 +61,6 @@ describe("Memory Game", () => {
     });
 
     it("should reveal color when a tile is clicked", () => {
-     
-    
       const tile = tiles[0];
       tile.click();
       expect(tile.classList.contains(strings.revealed)).toBe(true);
@@ -91,9 +69,6 @@ describe("Memory Game", () => {
 
   describe("handleClick function", () => {
     it("should match two tiles with the same color", () => {
-     
-    
-    
       tiles[0].style.background = "green";
       tiles[1].style.background = "green";
       tiles[0].click();
@@ -107,7 +82,6 @@ describe("Memory Game", () => {
     });
 
     it("should mismatch two tiles with different colors", () => {
-      
       tiles[3].style.background = "pink";
       tiles[2].style.background = "purple";
       tiles[3].click();
@@ -122,9 +96,15 @@ describe("Memory Game", () => {
 
   describe("restartGameState function", () => {
     it("should display congratulations text when all tiles are matched", () => {
-      let remainingColors =  ["red","orange","purple","brown","green","pink"]
+      let remainingColors = [
+        "red",
+        "orange",
+        "purple",
+        "brown",
+        "green",
+        "pink",
+      ];
       const congratulationsElement = document.querySelector(strings.feedback);
-     
 
       for (let i = 0; i < tiles.length - 1; i += 2) {
         const color = remainingColors.pop();
@@ -134,7 +114,6 @@ describe("Memory Game", () => {
         tiles[i + 1].click();
         jasmine.clock().tick(1000);
       }
-     
 
       tiles[10].style.background = "orange";
       tiles[11].style.background = "orange";
@@ -145,8 +124,6 @@ describe("Memory Game", () => {
     });
 
     it("should display restart button after the first card was clicked", function () {
-   
-      
       tiles[0].style.background = "green";
       tiles[1].style.background = "green";
       tiles[0].click();
