@@ -25,6 +25,7 @@ strings = {
   start: "startGame",
   row: "rows",
   column: "columns",
+  timeElement: "timer",
 };
 
 module.exports = strings;

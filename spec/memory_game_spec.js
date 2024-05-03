@@ -12,7 +12,9 @@ describe("Memory Game", () => {
   let rows, columns;
 
   beforeEach(() => {
+    const startDate = new Date();
     jasmine.clock().install();
+    jasmine.clock().mockDate(startDate);
 
     tiles = document.querySelectorAll(strings.tiles);
     rows = document.getElementById(strings.row);
@@ -154,6 +156,45 @@ describe("Memory Game", () => {
 
       expect(tiles[0].classList.contains(strings.tile));
       expect(tiles[1].classList.contains(strings.tile));
+    });
+  });
+  describe("Timer functionality", () => {
+    it("should display how long it took to complete the game in the success message", () => {
+      const congratulationsElement = document.querySelector(strings.feedback);
+      let remainingColors = [
+        "red",
+        "orange",
+        "purple",
+        "brown",
+        "green",
+        "pink",
+      ];
+
+      for (let i = 0; i < tiles.length - 1; i += 2) {
+        const color = remainingColors.pop();
+        tiles[i].style.background = color;
+        tiles[i + 1].style.background = color;
+        tiles[i].click();
+        tiles[i + 1].click();
+        jasmine.clock().tick(1000);
+      }
+
+      expect(congratulationsElement.textContent).toEqual(
+        "Congratulations! You've completed the game in 0 minutes and 6 seconds!"
+      );
+    });
+
+    it("should update the timer every second", () => {
+      tiles[3].style.background = "pink";
+      tiles[2].style.background = "purple";
+      tiles[3].click();
+      tiles[2].click();
+      jasmine.clock().tick(1000);
+      let timerElement = document.getElementById(strings.timeElement);
+      const initialTime = timerElement.textContent;
+      jasmine.clock().tick(3000);
+      const updatedTime = timerElement.textContent;
+      expect(updatedTime).not.toBe(initialTime);
     });
   });
 });

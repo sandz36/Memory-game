@@ -68,3 +68,9 @@ body {
   text-align: center;
   color: gold;
 }
+
+#timer {
+  text-align: center;
+  color: purple;
+  background: black;
+}

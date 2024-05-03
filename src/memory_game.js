@@ -8,6 +8,10 @@ const {
   getRevealedTiles,
 } = require("./dom_helpers");
 
+let startTime;
+let timerInterval;
+let elapsedTime;
+
 function buildTile(color, id) {
   const element = document.createElement(strings.div);
   element.classList.add(strings.tile);
@@ -60,6 +64,26 @@ function startGame() {
   const rows = parseInt(document.getElementById(strings.row).value);
   const columns = parseInt(document.getElementById(strings.column).value);
   shuffleTiles(rows, columns);
+  startTimer();
+}
+
+function startTimer() {
+  startTime = new Date();
+  timerInterval = setInterval(updateTimer, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+
+function updateTimer() {
+  const currentTime = new Date();
+  elapsedTime = new Date(currentTime - startTime);
+  const minutes = elapsedTime.getMinutes();
+  const seconds = elapsedTime.getSeconds();
+  document.getElementById(
+    strings.timeElement
+  ).textContent = `Time: ${minutes} min ${seconds} sec`;
 }
 
 let startGameElement = document.getElementById(strings.start);
@@ -75,6 +99,7 @@ restartButton.addEventListener(strings.click, () => {
   const rows = parseInt(document.getElementById(strings.row).value);
   const columns = parseInt(document.getElementById(strings.column).value);
   shuffleTiles(rows, columns);
+  startTimer();
 });
 
 function handleClick(event) {
@@ -105,7 +130,9 @@ function handleClick(event) {
           restartButton.style.visibility = strings.visible;
         }
         if (checkAllTilesFlippedAndCounter(counter, tiles)) {
+          feedback.textContent = `Congratulations! You've completed the game in ${elapsedTime.getMinutes()} minutes and ${elapsedTime.getSeconds()} seconds!`;
           feedback.style.visibility = strings.visible;
+          stopTimer();
         }
       }, 1000);
     } else {
@@ -126,6 +153,7 @@ function resetGameState() {
   restartButton.style.visibility = strings.hidden;
   counter = tiles.length;
   feedback.style.visibility = strings.hidden;
+  stopTimer();
 }
 
 module.exports = {
