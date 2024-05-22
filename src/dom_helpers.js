@@ -1,7 +1,9 @@
+const { selectors, classes } = require("./dom_strings");
+
 function isTileRevealedOrMatched(tile) {
   if (
-    tile.classList.contains(strings.revealed) ||
-    tile.classList.contains(strings.match)
+    tile.classList.contains(classes.revealed) ||
+    tile.classList.contains(classes.match)
   ) {
     return true;
   }
@@ -12,35 +14,35 @@ function addRevealClassPush(tile) {
   const numberOfRevealedTiles = getRevealedTiles().length;
 
   if (numberOfRevealedTiles < 2) {
-    tile.classList.add(strings.revealed);
+    tile.classList.add(classes.revealed);
   }
 }
 
 function addMatchClass(tile1, tile2) {
-  tile1.classList.add(strings.match);
-  tile2.classList.add(strings.match);
+  tile1.classList.add(classes.match);
+  tile2.classList.add(classes.match);
 }
 
 function checkAllTilesFlippedAndCounter(counter, tiles) {
   const tileArray = [...tiles];
-  let allFlipped = tileArray.every((tile) =>
-    tile.classList.contains(strings.match)
+  const allFlipped = tileArray.every((tile) =>
+    tile.classList.contains(classes.match)
   );
 
   return allFlipped || counter === 0;
 }
 function handleMismatchedTiles(tile1, tile2) {
-  tile1.classList.remove(strings.revealed);
-  tile2.classList.remove(strings.revealed);
+  tile1.classList.remove(classes.revealed);
+  tile2.classList.remove(classes.revealed);
 }
 
 function getRevealedTiles() {
-  const tiles = document.querySelectorAll(strings.tiles);
+  const tiles = document.querySelectorAll(selectors.tiles);
 
   return [...tiles].filter(
     (tile) =>
-      tile.classList.contains(strings.revealed) &&
-      !tile.classList.contains(strings.matched)
+      tile.classList.contains(classes.revealed) &&
+      !tile.classList.contains(classes.matched)
   );
 }
 

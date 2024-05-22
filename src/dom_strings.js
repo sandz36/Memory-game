@@ -1,31 +1,68 @@
-strings = {
+const selectors = {
   tilesContainer: ".tiles",
   tiles: ".tile",
   restart: ".restart",
   feedback: ".feedback",
-  colors: [
-    "red",
-    "orange",
-    "purple",
-    "brown",
-    "green",
-    "pink",
-    "yellow",
-    "white",
-  ],
-  div: "div",
-  tile: "tile",
-  colorData: "data-color",
-  click: "click",
-  revealed: "revealed",
-  match: "match",
-  id: "id",
-  visible: "visible",
-  hidden: "hidden",
   start: "startGame",
   row: "rows",
   column: "columns",
   timeElement: "timer",
+  turnCount: "turnCounter",
 };
 
-module.exports = strings;
+const messages = {
+  alertMessage:
+    "Total number of tiles cannot be 9. Please choose different dimensions.",
+  congratulationsMessage:
+    "Congratulations! You've completed the game in 12 moves and 0 minutes and 6 seconds!",
+  getTurnCountString: (turnCount) => `Turn Count: ${turnCount}`,
+};
+
+const attributes = {
+  div: "div",
+  tile: "tile",
+  colorData: "data-color",
+  id: "id",
+};
+
+const classes = {
+  revealed: "revealed",
+  match: "match",
+  visible: "visible",
+  hidden: "hidden",
+};
+
+const colorsArray = [
+  "red",
+  "orange",
+  "purple",
+  "brown",
+  "green",
+  "pink",
+  "yellow",
+  "white",
+];
+
+const events = {
+  click: "click",
+};
+
+const gameControllers = {
+  turnCount: 0,
+  startTime: null,
+  timerInterval: null,
+  elapsedTime: null,
+  isFirstClick: true,
+  isAwaitingMove: false,
+};
+
+
+module.exports = {
+  selectors,
+  messages,
+  attributes,
+  classes,
+  colorsArray,
+  events,
+  gameControllers,
+};
