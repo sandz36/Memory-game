@@ -57,19 +57,18 @@ const gameControllers = {
 };
 
 const gridDimensions = {
-   heights :  {
+  heights: {
     2: "175px",
     3: "265px",
     4: "350px",
   },
 
-   widths : {
+  widths: {
     2: "180px",
     3: "270px",
     4: "345px",
-  }
-}
-
+  },
+};
 
 module.exports = {
   selectors,

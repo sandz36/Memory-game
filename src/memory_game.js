@@ -1,5 +1,5 @@
-const { messages, events, gameControllers } = require("./dom_strings");
-const { resetGameState, shuffleTiles, handleClick } = require("./dom_helpers");
+const { messages, events, gameControllers } = require("./helper_objects");
+const { resetGameState, shuffleTiles, handleClick } = require("./helper_functions");
 
 const domElements = require("./dom_elements");
 

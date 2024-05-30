@@ -1,4 +1,4 @@
-const { selectors } = require("./dom_strings");
+const { selectors } = require("./helper_objects");
 
 const domElements = {
   tilesContainer: document.querySelector(selectors.tilesContainer),

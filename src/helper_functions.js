@@ -6,12 +6,14 @@ const {
   gridDimensions,
   colorsArray,
   attributes,
-} = require("./dom_strings");
+} = require("./helper_objects");
 const domElements = require("./dom_elements");
 
 function updateTurnCountDisplay() {
   if (domElements.turnCounterElement) {
-    domElements.turnCounterElement.textContent = messages.getTurnCountString(gameControllers.turnCount);
+    domElements.turnCounterElement.textContent = messages.getTurnCountString(
+      gameControllers.turnCount
+    );
   }
 }
 
@@ -32,7 +34,9 @@ function handleMatch(tile1, tile2, counter, tiles, feedback) {
     tile2.classList.remove(classes.revealed);
 
     if (checkAllTilesFlippedAndCounter(counter, tiles)) {
-      feedback.textContent = `Congratulations! You've completed the game in ${gameControllers.turnCount} moves and ${gameControllers.elapsedTime.getMinutes()} minutes and ${gameControllers.elapsedTime.getSeconds()} seconds!`;
+      feedback.textContent = `Congratulations! You've completed the game in ${
+        gameControllers.turnCount
+      } moves and ${gameControllers.elapsedTime.getMinutes()} minutes and ${gameControllers.elapsedTime.getSeconds()} seconds!`;
       feedback.style.visibility = classes.visible;
       stopTimer();
     }
@@ -50,7 +54,9 @@ function handleMismatch(tile1, tile2) {
 
 function updateTimer() {
   const currentTime = new Date();
-  gameControllers.elapsedTime = new Date(currentTime - gameControllers.startTime);
+  gameControllers.elapsedTime = new Date(
+    currentTime - gameControllers.startTime
+  );
   const minutes = gameControllers.elapsedTime.getMinutes();
   const seconds = gameControllers.elapsedTime.getSeconds();
   domElements.timeElement.textContent = `Time: ${minutes} min ${seconds} sec`;
@@ -81,13 +87,12 @@ function handleClick(event) {
   let counter = tiles.length;
   const tile = event.target;
   if (gameControllers.isAwaitingMove || isTileRevealedOrMatched(tile)) return;
-
+  gameControllers.turnCount++;
+  updateTurnCountDisplay();
   addRevealClassPush(tile);
   const revealedTiles = getRevealedTiles();
-  gameControllers.turnCount++;
 
   if (revealedTiles.length === 2) {
-    updateTurnCountDisplay();
     const tile1 = domElements.getTileById(revealedTiles[0].id);
     const tile2 = domElements.getTileById(revealedTiles[1].id);
     handleRevealedTiles(tile1, tile2, counter, tiles, domElements.feedback);
@@ -145,7 +150,10 @@ function startTimerOnFirstClick() {
 }
 
 function isTileRevealedOrMatched(tile) {
-  return tile.classList.contains(classes.revealed) || tile.classList.contains(classes.match);
+  return (
+    tile.classList.contains(classes.revealed) ||
+    tile.classList.contains(classes.match)
+  );
 }
 
 function addRevealClassPush(tile) {
@@ -160,7 +168,10 @@ function addMatchClass(tile1, tile2) {
 }
 
 function checkAllTilesFlippedAndCounter(counter, tiles) {
-  return [...tiles].every(tile => tile.classList.contains(classes.match)) || counter === 0;
+  return (
+    [...tiles].every((tile) => tile.classList.contains(classes.match)) ||
+    counter === 0
+  );
 }
 
 function handleMismatchedTiles(tile1, tile2) {
@@ -169,7 +180,11 @@ function handleMismatchedTiles(tile1, tile2) {
 }
 
 function getRevealedTiles() {
-  return [...domElements.getTiles()].filter(tile => tile.classList.contains(classes.revealed) && !tile.classList.contains(classes.matched));
+  return [...domElements.getTiles()].filter(
+    (tile) =>
+      tile.classList.contains(classes.revealed) &&
+      !tile.classList.contains(classes.matched)
+  );
 }
 
 module.exports = {
